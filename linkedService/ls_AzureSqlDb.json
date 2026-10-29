@@ -1,0 +1,23 @@
+{
+	"name": "ls_AzureSqlDb",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "practicesqlserver02.database.windows.net",
+			"database": "practiceDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "PracticeAdmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Ls_AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "matadata-db-password"
+			}
+		}
+	}
+}
