@@ -1,14 +1,14 @@
 {
-	"name": "PL_postgres_to_landing",
+	"name": "PL_postgres_to_landing_main",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Read table details",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
-					"retry": 0,
+					"retry": 1,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
@@ -16,47 +16,47 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "PostgreSqlV2Source",
-						"query": "select * from PUBLIC.hospitals",
-						"queryTimeout": "02:00:00"
-					},
-					"sink": {
-						"type": "ParquetSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@select table_id from ctrl.table_config WHERE is_active = 1 AND source_system = @{pipeline().parameters.source_system}",
+							"type": "Expression"
 						},
-						"formatSettings": {
-							"type": "ParquetWriteSettings"
-						}
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "Ds_PostgreSqlTable1",
+					"dataset": {
+						"referenceName": "Ds_AzureSql",
 						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Ingest all tables",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Read table details",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
-				"outputs": [
-					{
-						"referenceName": "Ds_Adls",
-						"type": "DatasetReference",
-						"parameters": {
-							"Container_name": "landing",
-							"Folder_name": "test"
-						}
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Read table details').output.value",
+						"type": "Expression"
 					}
-				]
+				}
 			}
 		],
+		"parameters": {
+			"source_system": {
+				"type": "string",
+				"defaultValue": "neon_postgres"
+			}
+		},
 		"annotations": []
 	}
 }
