@@ -123,7 +123,7 @@
 			},
 			{
 				"name": "landing_to_bronze",
-				"type": "DatabricksNotebook",
+				"type": "DatabricksJob",
 				"dependsOn": [
 					{
 						"activity": "Source to landing",
@@ -141,18 +141,18 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/caresync-repo/caresync-DB-repo/landing to bronze",
-					"baseParameters": {
-						"landing_timestamp": {
-							"value": "@variables('Start time')",
-							"type": "Expression"
-						},
+					"jobId": "655533069376850",
+					"jobParameters": {
 						"source_system": {
 							"value": "@activity('Read Table Details').output.value[0].source_system",
 							"type": "Expression"
 						},
 						"table_name": {
-							"value": "@activity('Read Table Details').output.value[0].table_name",
+							"value": "@activity('Read Table Details').output.value[0].source_table_name",
+							"type": "Expression"
+						},
+						"landing_timestamp": {
+							"value": "@variables('Start time')",
 							"type": "Expression"
 						}
 					}
@@ -164,7 +164,7 @@
 			},
 			{
 				"name": "bronze_to_silver",
-				"type": "DatabricksNotebook",
+				"type": "DatabricksJob",
 				"dependsOn": [
 					{
 						"activity": "landing_to_bronze",
@@ -182,14 +182,14 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/caresync-repo/caresync-DB-repo/bronze to silver",
-					"baseParameters": {
+					"jobId": "661451724215476",
+					"jobParameters": {
 						"landing_timestamp": {
 							"value": "@variables('Start time')",
 							"type": "Expression"
 						},
 						"table_name": {
-							"value": "@activity('Read Table Details').output.value[0].table_name",
+							"value": "@activity('Read Table Details').output.value[0].silver_table_name",
 							"type": "Expression"
 						}
 					}
