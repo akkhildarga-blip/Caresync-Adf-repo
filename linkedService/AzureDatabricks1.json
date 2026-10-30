@@ -12,23 +12,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "adb-token"
-			},
-			"newClusterNodeType": "Standard_DS3_v2",
-			"newClusterNumOfWorker": "1",
-			"newClusterSparkConf": {
-				"spark.databricks.cluster.profile": "singleNode",
-				"spark.master": "local[*]"
-			},
-			"newClusterSparkEnvVars": {
-				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
-			},
-			"newClusterCustomTags": {
-				"ResourceClass": "SingleNode"
-			},
-			"newClusterVersion": "13.3.x-scala2.12",
-			"clusterOption": "Fixed",
-			"newClusterInitScripts": [],
-			"dataSecurityMode": "SINGLE_USER"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
