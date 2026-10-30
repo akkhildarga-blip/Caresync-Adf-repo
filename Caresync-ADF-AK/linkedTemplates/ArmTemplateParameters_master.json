@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Caresync-ADF-AK"
+		},
+		"Ls_AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://caresyncKV-Ak.vault.azure.net/"
+		},
+		"ls_AzureSqlDb_properties_typeProperties_server": {
+			"value": "practicesqlserver02.database.windows.net"
+		},
+		"ls_AzureSqlDb_properties_typeProperties_database": {
+			"value": "practiceDB"
+		},
+		"ls_AzureSqlDb_properties_typeProperties_userName": {
+			"value": "PracticeAdmin"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"value": "https://caresyncstoragemain.dfs.core.windows.net/"
+		},
+		"ls_postgressql_properties_typeProperties_server": {
+			"value": "ep-mute-thunder-b3zsuqib-pooler.c-4.ap-southeast-1.aws.neon.tech"
+		},
+		"ls_postgressql_properties_typeProperties_database": {
+			"value": "neondb"
+		},
+		"ls_postgressql_properties_typeProperties_username": {
+			"value": "neondb_owner"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
