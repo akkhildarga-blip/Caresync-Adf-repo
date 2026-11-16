@@ -11,7 +11,8 @@
 					"referenceName": "Ls_AzureKeyVault1",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "adb-token"
+				"secretName": "adb-token",
+				"secretVersion": "5e13cf14872a4c22a27b57f0286b948a"
 			}
 		}
 	},
